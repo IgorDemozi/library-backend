@@ -1,0 +1,9 @@
+/node_modules
+.env
+/docker
+/upload
+.env.development.local
+db.json
+.prettierrc
+docker-compose.yml
+postgres.dockerfile
