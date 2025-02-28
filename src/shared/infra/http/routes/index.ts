@@ -7,7 +7,7 @@ import { genresRoutes } from './genres.routes';
 
 const router = Router();
 
-router.use('/login', userRoutes);
+router.use('/user', userRoutes);
 router.use('/books', booksRoutes);
 router.use('/rentHistories', rentHistoriesRoutes);
 router.use('/genres', genresRoutes);

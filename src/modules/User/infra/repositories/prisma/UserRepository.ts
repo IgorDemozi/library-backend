@@ -10,6 +10,39 @@ class UserRepository implements IUserRepository {
       },
     });
   }
+
+  async createUser(email: string, password: string): Promise<User | null> {
+    return await prisma.user.create({ data: { email: email, password: password } });
+  }
+
+  async deleteuser(email: string): Promise<User | null> {
+    return await prisma.user.delete({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async updateUser(email: string, password: string): Promise<User | null> {
+    return await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password,
+      },
+    });
+  }
+
+  async getUsers(): Promise<User[]> {
+    const users = prisma.user.findMany({
+      orderBy: {
+        email: 'asc',
+      },
+    });
+
+    return users;
+  }
 }
 
 export { UserRepository };
