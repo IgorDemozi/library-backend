@@ -11,6 +11,6 @@ export class DeleteUserUseCase {
       throw new AppError('Usuário não encontrado.');
     }
 
-    await this.userRepository.deleteuser(email);
+    await this.userRepository.deleteUser(email);
   }
 }

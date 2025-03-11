@@ -2,21 +2,16 @@ import { z } from 'zod';
 import { User } from '../../entities/User';
 import { IUserRepository } from '../../infra/repositories/types/IUserRepositories';
 import { AppError } from '../../../../shared/errors/AppError';
+import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
+import { CreateUserSchema } from '../../entities/validator/CreateUserSchema';
 
 class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute({ email, password }: ISignInUserDTO): Promise<User> {
-    const validation = z.object({
-      email: z.string().email().min(1),
-      password: z.string().min(1),
-    });
-    const validatedUser = validation.parse({
-      email: email,
-      password: password,
-    });
+    validateSchemaOrThrowAppError(CreateUserSchema, { email, password });
 
-    const user = await this.userRepository.createUser(validatedUser.email, validatedUser.password);
+    const user = await this.userRepository.createUser(email, password);
 
     if (!user) {
       throw new AppError('Erro ao criar usuário.');

@@ -15,7 +15,7 @@ class UserRepository implements IUserRepository {
     return await prisma.user.create({ data: { email: email, password: password } });
   }
 
-  async deleteuser(email: string): Promise<User | null> {
+  async deleteUser(email: string): Promise<User | null> {
     return await prisma.user.delete({
       where: {
         email,
