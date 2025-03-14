@@ -13,7 +13,7 @@ describe('CreateUserUseCase tests', () => {
     expect(user).toBeTruthy();
   });
 
-  it('should throw an error if the password is shorter than 7 characters', async () => {
+  it('should throw an error if the password is shorter than 8 characters', async () => {
     const userData = { email: 'testMail@test.com', password: 'test123' };
 
     try {

@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { z } from 'zod';
-import { SECRET_KEY } from '../../../../shared/infra/http/middleware/auth';
-import { IUserRepository } from '../../infra/repositories/types/IUserRepositories';
 import { AppError } from '../../../../shared/errors/AppError';
+import { SECRET_KEY } from '../../../../shared/infra/http/middleware/auth';
+import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
+import { CreateUserSchema } from '../../entities/validator/CreateUserSchema';
+import { IUserRepository } from '../../infra/repositories/types/IUserRepositories';
 
 interface IRequest {
   email: string;
@@ -18,18 +19,11 @@ class AuthenticateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    const validacao = z.object({
-      email: z.string().email().min(1),
-      password: z.string().min(1),
-    });
-    const usuarioValidado = validacao.parse({
-      email: email,
-      password: password,
-    });
+    validateSchemaOrThrowAppError(CreateUserSchema, { email, password });
 
-    const user = await this.userRepository.findByEmail(usuarioValidado.email);
+    const user = await this.userRepository.findByEmail(email);
 
-    if (!user || user.password !== usuarioValidado.password) {
+    if (!user || user.password !== password) {
       throw new AppError('Usuário ou senha inválidos');
     }
 
