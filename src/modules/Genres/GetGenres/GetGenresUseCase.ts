@@ -1,9 +1,7 @@
 import { genres } from '../../../genres';
 
-class GetGenresUseCase {
+export class GetGenresUseCase {
   async execute(): Promise<string[]> {
     return genres;
   }
 }
-
-export { GetGenresUseCase };

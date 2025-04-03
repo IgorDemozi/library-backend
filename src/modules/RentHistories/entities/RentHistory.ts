@@ -1,6 +1,6 @@
 import { Book } from '../../Books/entities/Book';
 
-interface IRentHistory {
+export interface IRentHistory {
   id: string;
   studentName: string;
   class: string;

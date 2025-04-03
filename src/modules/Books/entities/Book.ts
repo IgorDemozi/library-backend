@@ -30,7 +30,7 @@ class Book {
   isRented?: boolean;
   isActive?: boolean;
   statusDescription?: string;
-  // rentHistory: RentHistory[];
+  rentHistory?: RentHistory[];
 
   constructor(props: IBook) {
     Object.assign(this, props);

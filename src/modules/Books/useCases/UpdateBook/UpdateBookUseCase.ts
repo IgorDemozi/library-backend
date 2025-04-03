@@ -1,13 +1,13 @@
 import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
 import { IUpdateBookDTO } from '../../dtos/IUpdateBookDTO';
 import { Book } from '../../entities/Book';
-import { BookRepository } from '../../infra/repositories/prisma/BookRepository';
+import { IBookRepository } from '../../infra/repositories/types/IBookRepository';
 import { UpdateBookSchema } from '../../validators/UpdateBookSchema';
 
 class UpdateBookUseCase {
-  constructor(private bookRepository: BookRepository) {}
+  constructor(private bookRepository: IBookRepository) {}
 
-  async execute(bookData: IUpdateBookDTO): Promise<Book> {
+  async execute(bookData: IUpdateBookDTO): Promise<Book | null> {
     validateSchemaOrThrowAppError(UpdateBookSchema, bookData);
 
     const dayMonthYear = bookData.systemEntryDate
