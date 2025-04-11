@@ -12,6 +12,7 @@ export interface Livro {
 }
 
 export type RentHistory = {
+  id?: string;
   studentName: string;
   class: string;
   loanDate: string;

@@ -1,10 +1,10 @@
 import { Book } from '../../entities/Book';
-import { BookRepository } from '../../infra/repositories/prisma/BookRepository';
+import { IBookRepository } from '../../infra/repositories/types/IBookRepository';
 
 class ActivateBookUseCase {
-  constructor(private bookRepository: BookRepository) {}
+  constructor(private bookRepository: IBookRepository) {}
 
-  async execute(id: string): Promise<Book> {
+  async execute(id: string): Promise<Book | null> {
     const updateBook = await this.bookRepository.activateBook(id);
     return updateBook;
   }

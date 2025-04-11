@@ -1,19 +1,18 @@
-import { z } from 'zod';
+import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
 import { RentHistory } from '../../../../types';
 import { Book } from '../../entities/Book';
-import { BookRepository } from '../../infra/repositories/prisma/BookRepository';
-import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
+import { IBookRepository } from '../../infra/repositories/types/IBookRepository';
 import { LoanBookSchema } from '../../validators/LoanBookSchema';
 
-interface LoanBookUseCaseProps {
+export interface LoanBookUseCaseProps {
   id: string;
   rentData: RentHistory;
 }
 
 class LoanBookUseCase {
-  constructor(private bookRepository: BookRepository) {}
+  constructor(private bookRepository: IBookRepository) {}
 
-  async execute(bookData: LoanBookUseCaseProps): Promise<Book> {
+  async execute(bookData: LoanBookUseCaseProps): Promise<Book | null> {
     const { rentData } = bookData;
 
     const splitloanDate = rentData.loanDate

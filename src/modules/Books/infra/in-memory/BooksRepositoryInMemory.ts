@@ -28,7 +28,7 @@ export class BooksRepositoryInMemory implements IBookRepository {
           image: 'img',
           systemEntryDate: '10/05/2024',
           synopsis: 'insetos e metais precisosos',
-          isRented: false,
+          isRented: true,
           isActive: true,
           statusDescription: 'descrição',
         },
@@ -136,6 +136,20 @@ export class BooksRepositoryInMemory implements IBookRepository {
         isRented: true,
         rentHistory: [
           ...oldRentHistory,
+          {
+            ...bookData,
+            loanDate: bookData.loanDate.toString(),
+            returnDate: bookData.returnDate.toString(),
+          },
+        ],
+      };
+      this.books[index] = updatedBook;
+      return updatedBook;
+    } else if (index !== -1) {
+      const updatedBook: Book = {
+        ...this.books[index],
+        isRented: true,
+        rentHistory: [
           {
             ...bookData,
             loanDate: bookData.loanDate.toString(),

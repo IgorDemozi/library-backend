@@ -1,11 +1,11 @@
 import { validateSchemaOrThrowAppError } from '../../../../shared/utils/validateSchemaOrThrowAppError';
 import { ICreateBookDTO } from '../../dtos/ICreateBookDTO';
 import { Book } from '../../entities/Book';
-import { BookRepository } from '../../infra/repositories/prisma/BookRepository';
+import { IBookRepository } from '../../infra/repositories/types/IBookRepository';
 import { CreateBookSchema } from '../../validators/CreateBookSchema';
 
 class CreateBookUseCase {
-  constructor(private bookRepository: BookRepository) {}
+  constructor(private bookRepository: IBookRepository) {}
 
   async execute({ title, author, genre, systemEntryDate, synopsis, img }: ICreateBookDTO): Promise<Book> {
     const bookData = {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UserRepository } from '../../infra/repositories/prisma/UserRepository';
-import { AuthenticateUserUseCase } from './AuthenticateUseCase';
+import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 class AuthenticateController {
   async handle(req: Request, res: Response): Promise<Response> {

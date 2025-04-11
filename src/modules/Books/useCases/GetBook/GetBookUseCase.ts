@@ -1,8 +1,8 @@
 import { Book } from '../../entities/Book';
-import { BookRepository } from '../../infra/repositories/prisma/BookRepository';
+import { IBookRepository } from '../../infra/repositories/types/IBookRepository';
 
 class GetBookUseCase {
-  constructor(private bookRepository: BookRepository) {}
+  constructor(private bookRepository: IBookRepository) {}
 
   async execute(id: string): Promise<Book | null> {
     const book = await this.bookRepository.getBook(id);
